@@ -1,0 +1,257 @@
+---
+title: "Create a website with R"
+author: Kasia Kedzierska
+date: "`r format(Sys.Date(), format = '%B %d, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    code_folding: show
+    theme: paper
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    toc_depth: 3
+---
+
+# Before we start
+
+We need to check if we have all the necessary packages and software installed. I prepared a small script that will check and install necessary dependencies if it will not find them.
+
+```{r}
+source("scripts/install_pkgs_script.R")
+```
+
+```{r, class.source = 'fold-hide'}
+pkgs <- list(
+  "knitr", # for nice 
+  "blogdown"
+)
+
+# check if pkgs installed, and install after providing a warning if not
+invisible(
+  lapply(pkgs, function(pkg) {
+    if (!library(pkg, character.only = TRUE, logical.return = TRUE)) {
+      print(paste0("Warning: Installing the ", pkg, 
+                   ". You have 5s to stop the process."))
+      Sys.sleep(5)
+      install.packages(pkg)
+    }
+    library(pkg, character.only = TRUE, logical.return = TRUE)
+  })
+)
+```
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  eval = FALSE,
+  fig.align = 'center', 
+  cache = TRUE,
+  class.source = 'fold-show')
+```
+
+# Important resources
+
+There is a magnitude of freely available resources online, and I list some of them below. 
+
+* [blogdown](https://bookdown.org/yihui/blogdown/) - comprehensive book on the blogdown package and detailed instruction how to set up a website
+* [Setting up website on github](https://pages.github.com/)
+* [Netlify - free hosting platform](https://www.netlify.com/)
+
+# Simple example
+
+Github offers free hosting of one personal website per account and project websites for each repository. You can read more how to set up a website you can find details [here](https://pages.github.com/).
+
+In brief, to create a personal website set up a new repository names _username.github.io_. Github hosts the static websites created with [jekyll](https://jekyllrb.com/), but can host any static website, as long as there is an empty file `.nojekyll` in the repository. Then, github will not try to compile the website with jekyll and just host the content of the repository.
+
+Example of a very simple website can be found here: [website](https://dchurch-lab.github.io/) and [repository](https://github.com/dchurch-lab/dchurch-lab.github.io). 
+
+This website comprises of `html Rmarkdown notebooks` and some helper files as described in the directory structure below. 
+
+```
+± |master ✓| → tree -a 
+.
+├── dchurch-lab.github.io.Rproj
+├── .git 
+├── .gitignore # file with list of files to ignore while updating repository
+├── index.html # compiled index website notebook
+├── index.Rmd # the index website notebook
+├── .nojekyll
+├── notebooks # directory with other notebooks (subsequent websites)
+│   └── plots
+│       ├── jittered.html
+│       └── jittered.Rmd
+├── .Rhistory # not tracked file with Rcommands history 
+└── .Rproj.user # not tracked user specific files
+
+
+2 directories, 5 files
+```
+
+As you can see, all we need to set up a website with R is an html notebook and we're good. 
+
+# Structured example
+
+Simple example allows us to put on the website with very minimum content, such that we don't need to know anything about the website creation. However, it is not creating a continuous website. I.e. navigation and adding new content requires repeating the same action each time we generate new content. 
+
+Thankfully, `R` comes with an amazing package `blogdown` that allows us to build a website without complex knowledge. 
+
+In fact, we can create a website in less than 5 seconds after installing the package. 
+
+```{r}
+library(blogdown)
+new_site(dir = "example_website/")
+```
+
+This will create an example website with `yihui/hugo-lithium` theme and some example content. There are many hugo themes available - you can browse them [here](https://themes.gohugo.io/) and install a given theme with `install_theme()` function which we will investigate a bit later with an example of an academic website.
+
+```
+○ → tree -L 2 -a 
+.
+├── config.toml
+├── content
+│   ├── about.md
+│   └── post
+├── index.Rmd
+├── public
+│   ├── 2015
+│   ├── 2016
+│   ├── about
+│   ├── categories
+│   ├── css
+│   ├── favicon.ico
+│   ├── fonts
+│   ├── .gitkeep
+│   ├── images
+│   ├── index.html
+│   ├── index.xml
+│   ├── js
+│   ├── post
+│   ├── sitemap.xml
+│   └── tags
+├── static
+│   ├── .gitkeep
+│   └── post
+└── themes
+    └── hugo-lithium
+
+17 directories, 9 files
+```
+
+When we want to compile the website after we already created it, we should navigate to the directory in which we created the website and execute the following:
+
+```{r}
+setwd("example_website/")
+serve_site()
+```
+
+
+## Global settings
+
+The most important file to set up global settings for the website is the `config.toml` file. We can find options regarding the website title, structure, main menu etc. Since, we are continuously serving the site, we can observe the changes we are making in real time. In order to be able to see all changes we will be inflicting, let's open the website in out browser. 
+
+We can do that by clicking `Show in new window` button in RStudio, or navigating to the address provided by the earlier `blogdown::new_site()` or `blogdown::serve_site()` command (in my case `http://127.0.0.1:6576` but the ports might differ). 
+
+![Fig. 1: Show webiste in new window](imgs/show_in_new_window.png)
+
+#### Excercises
+
+Now, let's start by opening `config.toml` and changing few things. 
+
+1. Change the title to `"Our first website"`.
+
+```{r, class.source = 'fold-hide'}
+title = "Our first website"
+```
+
+2. Make the links simpler, i.e. `website_address/year/title`. 
+
+```{r, class.source = 'fold-hide'}
+[permalinks]
+    post = "/:year/:slug/"
+```
+
+3. Add new menu element pointing to the University Website. 
+
+```{r, class.source = 'fold-hide'}
+[[menu.main]]
+    name = "University of Oxford"
+    url = "http://www.ox.ac.uk/"
+```
+
+If we would like control the order of the elements in the menu we need to add `weight = n` to all menu, where smaller `n` means higher order, and bigger `n` means lower position.
+
+## Modifying content
+
+The content can be found in the `content` directory. It stores the subpages as well as posts in the `post` subdirectory. 
+
+As we see in the content of the directory there are already 3 posts here. Some of them are written in plain `markdown`, while there is one written in `R Markdown`. 
+
+```
+.
+├── 2015-01-01-lorem-ipsum.md
+├── 2015-07-23-r-rmarkdown.html
+├── 2015-07-23-r-rmarkdown.Rmd
+└── 2016-12-30-hello-markdown.md
+```
+
+### R Markdown Posts
+
+Let's have a look at the `R Markdown` post. As we can see, it has same structure as R Markdown, offering us all the options normal notebook. It's ideal for sharing results of the analysis and blogging. 
+
+We can create a new post with a dedicated `blogdown` function `new_post()`. 
+
+```{r}
+new_post(title = "Create new post!", ext = ".Rmd", 
+         slug = "simpler-slug")
+```
+This will create `2020-06-03-create-new-post.Rmd` file, and open it in out R Studio. We can add the following chunk:
+
+```{r}
+hist(rnorm(1000), col = "darkgreen", 
+     main = "Histogram of sample drawn from Gaussian Distribution - N(0, 1)", 
+     xlab = "")
+```
+
+and when saving, we should get the following post.
+
+![Fig. 2: New post created with a shortcut function](imgs/new_post.png)
+
+Or, we can use `Addins -> New Post`.
+
+![Fig. 3: Creating new post with Addings](imgs/creating_new_post_addins.png)
+
+![Fig. 4: New post](imgs/new_post.png)
+
+### Markdown posts  
+
+We can also create Markdown posts. There are some differences like the compilation of the equations and so on. The differences are described in the `A Plain Markdown Post` in our template. 
+
+### Content linked to menu
+
+When we want to create content linked to the menu we need to (1) create such content and (2) update the `config.toml` file.
+
+Suppose we want to create Contact page and substitute Github link for it. First, we create a sub-page in the `content`. Similarly as with the posts, we can either create the `R Markdown` or simple `Markdown` pages. 
+
+For example, I will create `contact_us.Rmd` file in the content directory. In the notebook, I will put some dummy contact info into a data frame and pretty print it with `knitr::kable()`. 
+
+Next, I will edit the `config.toml` with the following info. 
+
+```{r}
+[[menu.main]]
+    name = "Contact us"
+    url = "/contact_us/"
+    weight = 3
+```
+
+Note: url has to be the same as the file name without the extension!
+
+![Fig. 5: Contact us page](imgs/contact_us.png)
+
+# Deploying the website with Netlify
+
+
+

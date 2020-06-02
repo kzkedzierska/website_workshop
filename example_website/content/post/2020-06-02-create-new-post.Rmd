@@ -1,0 +1,16 @@
+---
+title: Create new post!
+author: ~
+date: '2020-06-02'
+slug: simpler-slug
+categories: []
+tags: []
+---
+
+Nice! We can create new posts with `blogdown::new_post()` function!
+
+```{r}
+hist(rnorm(1000), col = "darkgreen", 
+     main = "Histogram of sample drawn from Gaussian Distribution - N(0, 1)", 
+     xlab = "")
+```

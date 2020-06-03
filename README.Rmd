@@ -229,6 +229,7 @@ We can create a new post with a dedicated `blogdown` function `new_post()`.
 new_post(title = "Create new post!", ext = ".Rmd", 
          slug = "simpler-slug")
 ```
+
 This will create `2020-06-03-create-new-post.Rmd` file, and open it in out R Studio. We can add the following chunk:
 
 ```{r}
@@ -241,17 +242,21 @@ and when saving, we should get the following post.
 
 ![Fig. 2: New post created with a shortcut function](imgs/new_post.png)
 
+We can also create the `(R) Markdown` files and save them directly to the `content` directory. We just need to remember about the naming conventions. 
+
+#### Using Addins
+
 Or, we can use `Addins -> New Post`.
 
 ![Fig. 3: Creating new post with Addings](imgs/creating_new_post_addins.png)
 
-![Fig. 4: New post](imgs/new_post_addins.png)
+![Fig. 4: New post created with Addins](imgs/new_post_addins.png)
 
 ### Markdown posts  
 
 We can also create Markdown posts. There are some differences like the compilation of the equations and so on. The differences are described in the `A Plain Markdown Post` in our template. 
 
-### Content linked to menu
+### Content linked to the menu
 
 When we want to create content linked to the menu we need to (1) create such content and (2) update the `config.toml` file.
 

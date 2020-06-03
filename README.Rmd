@@ -59,10 +59,14 @@ knitr::opts_chunk$set(
 
 There is a magnitude of freely available resources online. I list some of them below.  
 
+* Description of [R Markdown site](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html)   
 * [blogdown](https://bookdown.org/yihui/blogdown/) - comprehensive book on the blogdown package and detailed instruction how to set up a website
-* cool [Tweetorial](https://twitter.com/dsquintana/status/1139846569623281664)
+* cool [Tweetorial](https://twitter.com/dsquintana/status/1139846569623281664) on how to build a website with `blogdown`
+* [pkdown](https://pkgdown.r-lib.org/) - documentation for the package allowing to build quick and nice websites for R packages
 * guide on setting up a website on [github](https://pages.github.com/)
 * [Netlify - free hosting platform](https://www.netlify.com/)
+* Bonus: [Happy Git and GitHub for the useR](https://happygitwithr.com/) - great resource on using Git and GitHub  
+
 
 # Introduction
 
@@ -241,7 +245,7 @@ Or, we can use `Addins -> New Post`.
 
 ![Fig. 3: Creating new post with Addings](imgs/creating_new_post_addins.png)
 
-![Fig. 4: New post](imgs/new_post.png)
+![Fig. 4: New post](imgs/new_post_addins.png)
 
 ### Markdown posts  
 
@@ -309,6 +313,8 @@ Now, the example website is currently deployed [here](https://serene-volhard-2d3
 
 # New website - new theme
 
+![Fig. 10: Hugo Academic theme example](imgs/academic_theme.png)
+
 ```{r}
 new_site("new_site", theme = "gcushen/hugo-academic", theme_example = TRUE)
 ```
@@ -325,12 +331,7 @@ new_site("new_site", theme = "gcushen/hugo-academic", theme_example = TRUE)
 │   ├── courses
 │   ├── home
 │   ├── post
-│   ├── privacy.md
-│   ├── project
-│   ├── publication
-│   ├── slides
-│   ├── talk
-│   └── terms.md
+│   ...
 ├── index.Rmd
 ├── public
 │   ├── 404.html
@@ -341,26 +342,7 @@ new_site("new_site", theme = "gcushen/hugo-academic", theme_example = TRUE)
 │   ├── category
 │   ├── courses
 │   ├── css
-│   ├── home
-│   ├── images
-│   ├── img
-│   ├── index.html
-│   ├── index.json
-│   ├── index.webmanifest
-│   ├── index.xml
-│   ├── js
-│   ├── post
-│   ├── privacy
-│   ├── project
-│   ├── publication
-│   ├── publication-type
-│   ├── publication_types
-│   ├── sitemap.xml
-│   ├── slides
-│   ├── tag
-│   ├── tags
-│   ├── talk
-│   └── terms
+│   ...
 ├── resources
 │   └── _gen
 ├── static
@@ -375,22 +357,24 @@ new_site("new_site", theme = "gcushen/hugo-academic", theme_example = TRUE)
 
 As we can see the directory is now more complicated with `content` including many different directories. This template, increases complexity, however it allows many sections to be compiled automatically. The Academic theme comes with built-in set up for courses, publications, projects and much more. We created the website with theme example, so we can read about each section while investigating the build website. 
 
-The Academic Documentation is quite comprehensive and allows to grasp the structure and mechanics of the template when followed hands on (i.e. by trying out the suggested modifications).
+The [Academic theme documentation](https://sourcethemes.com/academic/docs/) is quite comprehensive and allows to grasp the structure and mechanics of the template when followed hands on (i.e. by trying out the suggested modifications).
 
 # Inspiration
 
 I list some websites that can serve as an inspiration. The list is far from comprehensive and only includes the website I know about. Hopefully though, the websites will come in handy.
 
-__Websites with Academic template:__  
+__Websites with Hugo Academic template:__  
 
-* [AI4Health](https://cwcyau.github.io/) - Chris Yau' group website  
+* [AI4Health](https://cwcyau.github.io/) - Chris Yau' group website    
+* [Causality in Cognition](http://cicl.stanford.edu/) - website of a CiC group @ Stanford  
+* [Transport Systems + Logistics Laboratory](https://www.tslab.org/) - TSL group website    
 * [Kaspar Martens website](https://kasparmartens.rbind.io/) - nice to see usage of GIFs in the website banner and posts  
-* [My personal website](https://kasia.codes/) - simple example of the website, with CV linked (and automated in R with [this package](http://nickstrayer.me/datadrivencv/) as well!)  
+* [My personal website](https://kasia.codes/) - simple example of the website built with minimal modifications to the theme; bonus: static CV linked (and automated in R with [datadrivencv package](http://nickstrayer.me/datadrivencv/) as well!)  
 
 __Other websites:__  
 
 * [Simply Statistics](https://simplystatistics.org/about/) - Cool blog written by 3 biostatisticians  
 * [Nick Stryer](http://nickstrayer.me/) impressive, but minimalistic website with single `R Markdown` file (and a bit of Java Script for the animation)  
 * [NGSchool website](https://ngschool.eu/) - comprehensive website of the NGSchool Society and events it is organising.
-* [Collection of the R generated websites](https://github.com/rbind)  
-* [Showcase of Huho websites](https://gohugo.io/showcase/)  
+* [Collection of websites generated with R](https://github.com/rbind)  
+* [Showcase of Hugo websites](https://gohugo.io/showcase/)  

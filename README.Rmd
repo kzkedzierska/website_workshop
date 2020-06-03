@@ -23,9 +23,10 @@ source("scripts/install_pkgs_script.R")
 ```
 
 ```{r, class.source = 'fold-hide'}
+### TODO: put into the script, some parts are redundant!
 pkgs <- list(
-  "knitr", # for nice 
-  "blogdown"
+  "knitr", # for nice formatting
+  "blogdown" # the clue of the tutorial
 )
 
 # check if pkgs installed, and install after providing a warning if not
@@ -55,9 +56,10 @@ knitr::opts_chunk$set(
 
 # Important resources
 
-There is a magnitude of freely available resources online, and I list some of them below. 
+There is a magnitude of freely available resources online. I list some of them below.  
 
 * [blogdown](https://bookdown.org/yihui/blogdown/) - comprehensive book on the blogdown package and detailed instruction how to set up a website
+* [Cool Tweetorial](https://twitter.com/dsquintana/status/1139846569623281664)
 * [Setting up website on github](https://pages.github.com/)
 * [Netlify - free hosting platform](https://www.netlify.com/)
 
@@ -251,7 +253,7 @@ Note: url has to be the same as the file name without the extension!
 
 ![Fig. 5: Contact us page](imgs/contact_us.png)
 
-# Deploying the website with Netlify
+# Deploying website with Netlify
 
 This is an example of how to deploy the `example_website` we have been working on with [Netlify](https://www.netlify.com/). In this example, we will set the Continuous deployment after linking the website with the Github Repository. That means that every time we will push to our repository we will trigger the deployment automatically. 
 
@@ -288,4 +290,91 @@ We could also save those details into a `netlify.toml` configuration file in the
   command = "hugo"
 ```
 
+Now, the example website is currently deployed [here](https://serene-volhard-2d3dd1.netlify.app/).
 
+# New website - new theme
+
+```{r}
+new_site("new_site", theme = "gcushen/hugo-academic", theme_example = TRUE)
+```
+
+```
+.
+├── assets
+│   └── images
+├── config
+│   └── _default
+├── config.toml
+├── content
+│   ├── authors
+│   ├── courses
+│   ├── home
+│   ├── post
+│   ├── privacy.md
+│   ├── project
+│   ├── publication
+│   ├── slides
+│   ├── talk
+│   └── terms.md
+├── index.Rmd
+├── public
+│   ├── 404.html
+│   ├── admin
+│   ├── author
+│   ├── authors
+│   ├── categories
+│   ├── category
+│   ├── courses
+│   ├── css
+│   ├── home
+│   ├── images
+│   ├── img
+│   ├── index.html
+│   ├── index.json
+│   ├── index.webmanifest
+│   ├── index.xml
+│   ├── js
+│   ├── post
+│   ├── privacy
+│   ├── project
+│   ├── publication
+│   ├── publication-type
+│   ├── publication_types
+│   ├── sitemap.xml
+│   ├── slides
+│   ├── tag
+│   ├── tags
+│   ├── talk
+│   └── terms
+├── resources
+│   └── _gen
+├── static
+│   ├── admin
+│   ├── img
+│   └── post
+└── themes
+    └── hugo-academic
+
+44 directories, 10 files
+```
+
+As we can see the directory is now more complicated with `content` including many different directories. This template, increases complexity, however it allows many sections to be compiled automatically. The Academic theme comes with built-in set up for courses, publications, projects and much more. We created the website with theme example, so we can read about each section while investigating the build website. 
+
+The Academic Documentation is quite comprehensive and allows to grasp the structure and mechanics of the template when followed hands on (i.e. by trying out the suggested modifications).
+
+# Inspiration
+
+I list some websites that can serve as an inspiration. The list is far from comprehensive and only includes the website I know about. Hopefully though, the websites will come in handy.
+
+__Websites with Academic template:__  
+
+* [AI4Health](https://cwcyau.github.io/) - Chris Yau' group website  
+* [Kaspar Martens website](https://kasparmartens.rbind.io/) - nice to see usage of GIFs in the website banner and posts  
+* [My personal website](https://kasia.codes/) - simple example of the website, with CV linked (and automated in R with [this package](http://nickstrayer.me/datadrivencv/) as well!)  
+
+__Other websites:__  
+
+* [Simply Statistics](https://simplystatistics.org/about/) - Cool blog written by 3 biostatisticians  
+* [Nick Stryer](http://nickstrayer.me/) impressive, but minimalistic website with single `R Markdown` file (and a bit of Java Script for the animation)  
+* [NGSchool website](https://ngschool.eu/) - comprehensive website of the NGSchool Society and events it is organising.
+* [Collection of the R generated websites](https://github.com/rbind)  

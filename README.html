@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kasia Kedzierska" />
 
-<meta name="date" content="2020-06-02" />
+<meta name="date" content="2020-06-03" />
 
 <title>Create a website with R</title>
 
@@ -2884,7 +2884,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Create a website with R</h1>
 <h4 class="author">Kasia Kedzierska</h4>
-<h4 class="date">June 02, 2020</h4>
+<h4 class="date">June 03, 2020</h4>
 
 </div>
 
@@ -2904,9 +2904,10 @@ div.tocify {
 ##         (__)\         )\ /\ 
 ##              ||------w|
 ##              ||      ||</code></pre>
-<pre class="r fold-hide"><code>pkgs &lt;- list(
-  &quot;knitr&quot;, # for nice 
-  &quot;blogdown&quot;
+<pre class="r fold-hide"><code>### TODO: put into the script, some parts are redundant!
+pkgs &lt;- list(
+  &quot;knitr&quot;, # for nice formatting
+  &quot;blogdown&quot; # the clue of the tutorial
 )
 
 # check if pkgs installed, and install after providing a warning if not
@@ -2924,9 +2925,10 @@ invisible(
 </div>
 <div id="important-resources" class="section level1">
 <h1>Important resources</h1>
-<p>There is a magnitude of freely available resources online, and I list some of them below.</p>
+<p>There is a magnitude of freely available resources online. I list some of them below.</p>
 <ul>
 <li><a href="https://bookdown.org/yihui/blogdown/">blogdown</a> - comprehensive book on the blogdown package and detailed instruction how to set up a website</li>
+<li><a href="https://twitter.com/dsquintana/status/1139846569623281664">Cool Tweetorial</a></li>
 <li><a href="https://pages.github.com/">Setting up website on github</a></li>
 <li><a href="https://www.netlify.com/">Netlify - free hosting platform</a></li>
 </ul>
@@ -3082,8 +3084,8 @@ serve_site()</code></pre>
 </div>
 </div>
 </div>
-<div id="deploying-the-website-with-netlify" class="section level1">
-<h1>Deploying the website with Netlify</h1>
+<div id="deploying-website-with-netlify" class="section level1">
+<h1>Deploying website with Netlify</h1>
 <p>This is an example of how to deploy the <code>example_website</code> we have been working on with <a href="https://www.netlify.com/">Netlify</a>. In this example, we will set the Continuous deployment after linking the website with the Github Repository. That means that every time we will push to our repository we will trigger the deployment automatically.</p>
 <p>First, we log into <a href="https://app.netlify.com/">Netlify</a>. We then choose <code>New site from Git</code>.</p>
 <div class="figure">
@@ -3118,6 +3120,91 @@ serve_site()</code></pre>
 
   # Default build command.
   command = &quot;hugo&quot;</code></pre>
+<p>Now, the example website is currently deployed <a href="https://serene-volhard-2d3dd1.netlify.app/">here</a>.</p>
+</div>
+<div id="new-website---new-theme" class="section level1">
+<h1>New website - new theme</h1>
+<pre class="r fold-show"><code>new_site(&quot;new_site&quot;, theme = &quot;gcushen/hugo-academic&quot;, theme_example = TRUE)</code></pre>
+<pre><code>.
+├── assets
+│   └── images
+├── config
+│   └── _default
+├── config.toml
+├── content
+│   ├── authors
+│   ├── courses
+│   ├── home
+│   ├── post
+│   ├── privacy.md
+│   ├── project
+│   ├── publication
+│   ├── slides
+│   ├── talk
+│   └── terms.md
+├── index.Rmd
+├── public
+│   ├── 404.html
+│   ├── admin
+│   ├── author
+│   ├── authors
+│   ├── categories
+│   ├── category
+│   ├── courses
+│   ├── css
+│   ├── home
+│   ├── images
+│   ├── img
+│   ├── index.html
+│   ├── index.json
+│   ├── index.webmanifest
+│   ├── index.xml
+│   ├── js
+│   ├── post
+│   ├── privacy
+│   ├── project
+│   ├── publication
+│   ├── publication-type
+│   ├── publication_types
+│   ├── sitemap.xml
+│   ├── slides
+│   ├── tag
+│   ├── tags
+│   ├── talk
+│   └── terms
+├── resources
+│   └── _gen
+├── static
+│   ├── admin
+│   ├── img
+│   └── post
+└── themes
+    └── hugo-academic
+
+44 directories, 10 files</code></pre>
+<p>As we can see the directory is now more complicated with <code>content</code> including many different directories. This template, increases complexity, however it allows many sections to be compiled automatically. The Academic theme comes with built-in set up for courses, publications, projects and much more. We created the website with theme example, so we can read about each section while investigating the build website.</p>
+<p>The Academic Documentation is quite comprehensive and allows to grasp the structure and mechanics of the template when followed hands on (i.e. by trying out the suggested modifications).</p>
+</div>
+<div id="inspiration" class="section level1">
+<h1>Inspiration</h1>
+<p>I list some websites that can serve as an inspiration. The list is far from comprehensive and only includes the website I know about. Hopefully though, the websites will come in handy.</p>
+<p><strong>Websites with Academic template:</strong></p>
+<ul>
+<li><a href="https://cwcyau.github.io/">AI4Health</a> - Chris Yau’ group website<br />
+</li>
+<li><a href="https://kasparmartens.rbind.io/">Kaspar Martens website</a> - nice to see usage of GIFs in the website banner and posts<br />
+</li>
+<li><a href="https://kasia.codes/">My personal website</a> - simple example of the website, with CV linked (and automated in R with <a href="http://nickstrayer.me/datadrivencv/">this package</a> as well!)</li>
+</ul>
+<p><strong>Other websites:</strong></p>
+<ul>
+<li><a href="https://simplystatistics.org/about/">Simply Statistics</a> - Cool blog written by 3 biostatisticians<br />
+</li>
+<li><a href="http://nickstrayer.me/">Nick Stryer</a> impressive, but minimalistic website with single <code>R Markdown</code> file (and a bit of Java Script for the animation)<br />
+</li>
+<li><a href="https://ngschool.eu/">NGSchool website</a> - comprehensive website of the NGSchool Society and events it is organising.</li>
+<li><a href="https://github.com/rbind">Collection of the R generated websites</a></li>
+</ul>
 </div>
 
 
